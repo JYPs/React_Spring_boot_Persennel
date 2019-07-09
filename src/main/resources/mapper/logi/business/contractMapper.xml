@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seoulit.erp.logi.business.dao.ContractDao">
+	<resultMap type="ContractTo" id="contractResult">
+		<result property="contractNo" column="CONTRACT_NO" />
+		<result property="estimateNo" column="ESTIMATE_NO" />
+		<result property="contractType" column="CONTRACT_TYPE" />
+		<result property="customerCode" column="CUSTOMER_CODE" />
+		<result property="contractDate" column="CONTRACT_DATE" />
+		<result property="contractRequester"
+			column="CONTRACT_REQUESTER" />
+		<result property="personCodeInCharge"
+			column="PERSON_CODE_IN_CHARGE" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="deliveryResultStatus"
+			column="DELIVERY_RESULT_STATUS" />
+		<result property="slipRegistStatus" column="SLIP_REGIST_STATUS" />
+		<collection property="contractDetailList" select="com.seoulit.erp.logi.business.dao.ContractDetailDao.selectContractDetailList"	column="CONTRACT_NO" />
+	</resultMap>
+	<select id="selectContractList" resultMap="contractResult"
+		parameterType="map">
+		SELECT
+			CONTRACT_NO,
+			ESTIMATE_NO,
+			CONTRACT_TYPE,
+			CUSTOMER_CODE,
+			CONTRACT_DATE,
+			CONTRACT_REQUESTER,
+			PERSON_CODE_IN_CHARGE,
+			DESCRIPTION,
+			DELIVERY_RESULT_STATUS,
+			SLIP_REGIST_STATUS
+		FROM CONTRACT
+		where CONTRACT_DATE between #{fromDate} and #{toDate}
+	</select>
+	
+	<insert id="insertContract" parameterType="contractTo">
+
+		INSERT INTO CONTRACT
+		VALUES
+		( 
+			#{contractNo}, 
+			#{estimateNo}, 
+			#{contractType}, 
+			#{customerCode},
+			#{contractDate}, 
+			#{contractRequester}, 
+			#{personCodeInCharge},
+			#{description},
+			#{deliveryResultStatus},
+			#{slipRegistStatus}
+		)
+	</insert>
+	
+</mapper>

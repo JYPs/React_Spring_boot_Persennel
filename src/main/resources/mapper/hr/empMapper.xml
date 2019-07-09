@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seoulit.erp.hr.emp.dao.EmpDao">
+	<select id="selectEmployee" resultType="EmployeeTo" parameterType="String">
+		SELECT
+		EMP_CODE as empCode,
+		EMP_NAME as empName,
+		PASSWORD as password,
+		POSITION_CODE as positionCode,
+		AUTHORITY_CODE as authorityCode,
+		DEPT_CODE as deptCode,
+		BUSINESS_PLACE_CODE as businessPlaceCode
+		FROM EMPLOYEE
+		WHERE EMP_CODE=#{empCode}
+	</select>
+</mapper>

@@ -1,0 +1,13 @@
+GET http://localhost:8282/sys/findMenuList
+Authorization: a
+
+###
+POST http://localhost:8282/api/auth/login
+Content-Type: application/json
+
+{
+  "empCode": 1111,
+  "password": 1111
+}
+
+###

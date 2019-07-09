@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.seoulit.erp.logi.business.dao.ContractDetailDao">
+	<select id="selectContractDetailList"
+		resultType="ContractDetailTo" parameterType="String">
+		SELECT
+			CONTRACT_DETAIL_NO as contractDetailNo,
+			CONTRACT_NO as contractNo, 
+			ITEM_CODE as itemCode, 
+			ITEM_NAME as itemName, 
+			UNIT_OF_CONTRACT as unitOfContract,
+			DUE_DATE_OF_CONTRACT as dueDateOfContract, 
+			CONTRACT_AMOUNT as contractAmount,
+			UNIT_PRICE_OF_CONTRACT as unitPriceOfContract,
+			SUM_PRICE_OF_CONTRACT as sumPriceOfContract, 
+			MPS_APPLY_STATUS as mpsApplyStatus,
+			DELIVERY_STATUS as deliveryStatus,
+			DESCRIPTION as description,
+			DELIVERY_REMAIN as deliveryRemain,
+			SLIP_REGIST_STATUS as slipRegistStatus
+		FROM CONTRACT_DETAIL
+		where
+		CONTRACT_NO=#{contractNo}
+	</select>
+
+	<insert id="insertContractDetail" parameterType="contractDetailTo">
+
+		INSERT INTO CONTRACT_DETAIL(
+		  CONTRACT_DETAIL_NO
+		, CONTRACT_NO
+		, ITEM_CODE
+		, ITEM_NAME
+		, UNIT_OF_CONTRACT
+		, DUE_DATE_OF_CONTRACT
+		, CONTRACT_AMOUNT
+		, UNIT_PRICE_OF_CONTRACT
+		, SUM_PRICE_OF_CONTRACT
+		, MPS_APPLY_STATUS
+		, DELIVERY_STATUS
+		, DESCRIPTION
+		, DELIVERY_REMAIN
+		, SLIP_REGIST_STATUS 
+		)
+		VALUES
+		( #{contractDetailNo}
+		, #{contractNo}
+		, #{itemCode}
+		, #{itemName}
+		, #{unitOfContract}
+		, #{dueDateOfContract}
+		, #{contractAmount}
+		, #{unitPriceOfContract}
+		, #{contractAmount}*#{unitPriceOfContract}
+		, #{mpsApplyStatus}
+		, #{deliveryStatus}
+		, #{description}
+		, #{deliveryRemain}
+		, #{slipRegistStatus}
+		)
+	</insert>
+	
+		<update id="updateContractDetail" parameterType="contractDetailTo">
+
+		UPDATE CONTRACT_DETAIL SET
+			ITEM_CODE = #{itemCode}
+			, ITEM_NAME = #{itemName}
+			, UNIT_OF_CONTRACT = #{unitOfContract}
+			, DUE_DATE_OF_CONTRACT = #{dueDateOfContract}
+			, CONTRACT_AMOUNT = #{contractAmount}
+			, UNIT_PRICE_OF_CONTRACT = #{unitPriceOfContract}
+			, SUM_PRICE_OF_CONTRACT = #{sumPriceOfContract}
+			, MPS_APPLY_STATUS = #{mpsApplyStatus}
+			, DELIVERY_STATUS =	#{deliveryStatus}
+			, DESCRIPTION = #{description}
+			,DELIVERY_REMAIN = #{deliveryRemain}
+			,SLIP_REGIST_STATUS = #{slipRegistStatus}
+		WHERE
+			CONTRACT_DETAIL_NO =#{contractDetailNo}
+		AND
+			CONTRACT_NO = #{contractNo}
+	</update>
+	
+		<delete id="deleteContractDetail" parameterType="contractDetailTo">
+		DELETE FROM CONTRACT_DETAIL
+		WHERE 
+			CONTRACT_DETAIL_NO = #{contractDetailNo}
+		AND 
+			CONTRACT_NO= #{contractNo}
+	</delete>
+</mapper>
